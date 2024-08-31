@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "ca1a3366-28af-4197-919f-a81ac23546d4",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 360,
+  "height": 360,
+  "platformSettings": {},
+  "subMetas": {
+    "Popup Clipart Vector, Popup Wooden Game, Game, Popup, Wooden PNG Image For Free Download-Photoroom": {
+      "ver": "1.0.6",
+      "uuid": "fe4376b6-aa26-4442-8495-1bba12ede64a",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "ca1a3366-28af-4197-919f-a81ac23546d4",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 32,
+      "trimY": 65,
+      "width": 296,
+      "height": 229,
+      "rawWidth": 360,
+      "rawHeight": 360,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

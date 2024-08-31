@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "f0894d70-8e93-4bd3-8bf4-80945271c45c",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 307,
+  "height": 306,
+  "platformSettings": {},
+  "subMetas": {
+    "кубок-Photoroom": {
+      "ver": "1.0.6",
+      "uuid": "80a35238-fdc4-41f9-9e61-ef620597515d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "f0894d70-8e93-4bd3-8bf4-80945271c45c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -4.5,
+      "offsetY": 14.5,
+      "trimX": 37,
+      "trimY": 31,
+      "width": 224,
+      "height": 215,
+      "rawWidth": 307,
+      "rawHeight": 306,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
