@@ -1,9 +1,3 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
 import LeaderboardNode from "../Views/Nodes/Leaderboards/LeaderboardNode";
 
@@ -17,7 +11,6 @@ export default class Menu extends cc.Component {
         
     public startGameButton () {
         cc.director.loadScene('Game_scene');
-        cc.log("Start game");
     }
 
     public showLeaderboardButton() {

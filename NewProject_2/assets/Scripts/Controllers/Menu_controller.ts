@@ -1,22 +1,12 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class MenuController extends cc.Component {
     @property(cc.Prefab)
     leaderboardPrefab: cc.Prefab = null;
 
     private leaderboardPanel: cc.Node = null
-
-    start () {
-
-    }
 
     showLeaderboard(){
         if(!this.leaderboardPanel){
@@ -33,6 +23,4 @@ export default class NewClass extends cc.Component {
             this.leaderboardPanel.active = false;
         }
     }
-
-    // update (dt) {}
 }
