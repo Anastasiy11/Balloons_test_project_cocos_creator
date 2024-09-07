@@ -24,7 +24,4 @@ export default class PauseMenu extends cc.Component {
         cc.director.loadScene('Game_scene');
     }
 
-    protected onDestroy(): void {
-        cc.systemEvent.off('resume-game', this.onResumeGame, this);
-    }
 }

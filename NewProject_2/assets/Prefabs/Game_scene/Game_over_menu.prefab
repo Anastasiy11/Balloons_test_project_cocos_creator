@@ -24,20 +24,23 @@
         "__id__": 5
       },
       {
-        "__id__": 9
+        "__id__": 10
       },
       {
-        "__id__": 13
+        "__id__": 15
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 18
+      },
+      {
+        "__id__": 19
       }
     ],
     "_prefab": {
-      "__id__": 17
+      "__id__": 20
     },
     "_opacity": 255,
     "_color": {
@@ -70,7 +73,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -196,7 +199,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "menu",
+    "_name": "Menu_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -208,11 +211,11 @@
         "__id__": 6
       },
       {
-        "__id__": 7
+        "__id__": 8
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 9
     },
     "_opacity": 255,
     "_color": {
@@ -245,7 +248,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -273,7 +276,11 @@
     "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 0.95,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 7
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$transition": 3,
@@ -339,9 +346,19 @@
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },
     "_N$target": {
-      "__id__": 1
+      "__id__": 5
     },
     "_id": ""
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "",
+    "_componentId": "a1c38cvclNHiaRF+O5xvx+P",
+    "handler": "goToMenu",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Sprite",
@@ -388,7 +405,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "restart",
+    "_name": "Restart_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -397,14 +414,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 11
       },
       {
-        "__id__": 11
+        "__id__": 13
       }
     ],
     "_prefab": {
-      "__id__": 12
+      "__id__": 14
     },
     "_opacity": 255,
     "_color": {
@@ -428,8 +445,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        200.695,
-        -130.181,
+        203.39499999999992,
+        -134.0809999999998,
         0,
         0,
         0,
@@ -437,7 +454,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -458,14 +475,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 10
     },
     "_enabled": true,
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 0.95,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 12
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$transition": 3,
@@ -531,16 +552,26 @@
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },
     "_N$target": {
-      "__id__": 1
+      "__id__": 10
     },
     "_id": ""
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "",
+    "_componentId": "a1c38cvclNHiaRF+O5xvx+P",
+    "handler": "restartGame",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 10
     },
     "_enabled": true,
     "_materials": [
@@ -551,7 +582,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "dc06bb93-1272-4e09-9cdd-4f52c83c9d12"
+      "__uuid__": "7d9635ef-04c4-4cf0-9e17-0776580f6919"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -580,7 +611,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "label",
+    "_name": "Score_data",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -589,11 +620,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 14
+        "__id__": 16
       }
     ],
     "_prefab": {
-      "__id__": 15
+      "__id__": 17
     },
     "_opacity": 255,
     "_color": {
@@ -605,7 +636,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 203.41,
+      "width": 0,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -617,8 +648,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -146.038,
-        25.861,
+        -15.879,
+        19.663,
         0,
         0,
         0,
@@ -647,7 +678,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 13
+      "__id__": 15
     },
     "_enabled": true,
     "_materials": [
@@ -657,13 +688,15 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "Score: ",
-    "_N$string": "Score: ",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 60,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "96d059f4-ae96-4782-996a-b8936cb82989"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 1,
@@ -716,6 +749,25 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "a1c38cvclNHiaRF+O5xvx+P",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "finalScoreLabel": {
+      "__id__": 16
+    },
+    "restartButton": {
+      "__id__": 11
+    },
+    "menuButton": {
+      "__id__": 6
+    },
     "_id": ""
   },
   {

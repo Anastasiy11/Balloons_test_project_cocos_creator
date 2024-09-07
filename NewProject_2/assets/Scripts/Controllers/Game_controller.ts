@@ -82,19 +82,14 @@ export default class GameController extends cc.Component {
         this.isPause = true;
         this.pauseMenu.active = true;
         
-        cc.director.getScheduler().pauseTarget(this);
-        cc.director.pause;
-
-        cc.systemEvent.emit('pause-game');
+         cc.game.pause;
     }
 
     resumeGame() {
         this.isPause = false;
         this.pauseMenu.active = false;
 
-        cc.director.getScheduler().resumeTarget(this);
-        cc.director.resume;
-
+        cc.game.resume;
     }
 
     updateBalloonSpeed(){
@@ -117,7 +112,6 @@ export default class GameController extends cc.Component {
 
     onDestroy() {
         cc.systemEvent.off('balloon-popped', this.incrementScore, this);
-        cc.systemEvent.off('pause-game', this.pauseGame, this);
         cc.systemEvent.off('resume-game', this.resumeGame, this);
     }
 }
