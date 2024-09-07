@@ -82,14 +82,16 @@ export default class GameController extends cc.Component {
         this.isPause = true;
         this.pauseMenu.active = true;
         
-         cc.game.pause;
+        
+        cc.systemEvent.emit('pause-game');
     }
 
     resumeGame() {
         this.isPause = false;
         this.pauseMenu.active = false;
 
-        cc.game.resume;
+        
+        cc.systemEvent.emit('resume-game');
     }
 
     updateBalloonSpeed(){
