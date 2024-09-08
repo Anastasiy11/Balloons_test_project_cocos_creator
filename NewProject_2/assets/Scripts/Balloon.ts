@@ -1,6 +1,14 @@
 
 const {ccclass, property} = cc._decorator;
 
+// TODO Какой-то шарик новый
+// Наслдеование (ООП)
+
+//Иерархия методов 
+// public
+// protected
+// private
+
 @ccclass
 export default class Balloon extends cc.Component {
    @property(cc.Prefab)
@@ -13,7 +21,7 @@ export default class Balloon extends cc.Component {
       this.animateBalloon(balloon);
    }
 
-   animateBalloon(balloon: cc.Node) {
+   private animateBalloon(balloon: cc.Node) {
       cc.tween(balloon)
       .to(2, {position: cc.v3(0, cc.winSize.height / 2, 0)})
       .call(() => {

@@ -2,24 +2,17 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class GameController extends cc.Component {
-    @property(cc.Prefab)
-    balloonPrefab: cc.Prefab = null;
-
-    @property(cc.Label)
-    scoreLabel: cc.Label = null;
-
-    @property(cc.Node)
-    pauseMenu: cc.Node = null;
-
-    @property(cc.Node)
-    gameOverMenu: cc.Node = null;
+    @property(cc.Prefab) balloonPrefab: cc.Prefab = null;
+    @property(cc.Label) scoreLabel: cc.Label = null;
+    @property(cc.Node) pauseMenu: cc.Node = null;
+    @property(cc.Node) gameOverMenu: cc.Node = null;
 
     private score: number = 0;
     private isPause: boolean = false;
     private isGameOver: boolean = false;
     private balloonSpeed: number = 2;
 
-    onLoad(){
+    onLoad() {
         cc.systemEvent.on('balloon-popped', this.incrementScore, this);
         this.schedule(this.generateBalloon, 0.5);
         this.score = 0;
@@ -32,8 +25,9 @@ export default class GameController extends cc.Component {
         this.updateScore(0);
     }
 
+    // TODO BalloonsGenerator
     generateBalloon() {
-        if(this.isPause || this.isGameOver) return;
+        if (this.isPause || this.isGameOver) return;
 
         const balloon = cc.instantiate(this.balloonPrefab);
 
@@ -50,24 +44,26 @@ export default class GameController extends cc.Component {
         balloon.setPosition(startPosition);
         this.node.addChild(balloon);
 
+        // TODO переписать на tween
         const moveUp = cc.moveBy(this.balloonSpeed, cc.v2(0, screenHeight));
         const remove = cc.callFunc(() => {
-            if(balloon && balloon.isValid){
+            if (balloon && balloon.isValid) {
                 this.onBalloonMissed();
             }
 
-         balloon.destroy();
-    });
+            balloon.destroy();
+        });
     
     balloon.runAction(cc.sequence(moveUp, remove));
     }
 
     onBalloonMissed(){
-        if(!this.isPause === true){
+        if (!this.isPause === true) {
             this.gameOver();
         }
     }
 
+    // TODO ScoreController
     incrementScore(){
         this.updateScore(1);
         this.updateBalloonSpeed;
@@ -81,8 +77,7 @@ export default class GameController extends cc.Component {
     pauseGame() {
         this.isPause = true;
         this.pauseMenu.active = true;
-        
-        
+                
         cc.systemEvent.emit('pause-game');
     }
 
@@ -90,13 +85,12 @@ export default class GameController extends cc.Component {
         this.isPause = false;
         this.pauseMenu.active = false;
 
-        
         cc.systemEvent.emit('resume-game');
     }
 
     updateBalloonSpeed(){
         if(this.score % 10 === 0){
-             this.balloonSpeed * 0.9;
+            this.balloonSpeed * 0.9;
         }
     }
 
@@ -107,7 +101,7 @@ export default class GameController extends cc.Component {
 
         const gameOverScript = this.gameOverMenu.getComponent('game_over_menu');
 
-        if(gameOverScript) {
+        if (gameOverScript) {
             gameOverScript.finalScore(this.score);
         }
     }
