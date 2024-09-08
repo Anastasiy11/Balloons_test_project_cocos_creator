@@ -1,3 +1,5 @@
+import LeaderBoardStorage from "../Utils/LeaderBoardStorage";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -98,7 +100,6 @@ export default class GameController extends cc.Component {
         this.isGameOver = true;
         this.gameOverMenu.active = true;
         this.unschedule(this.generateBalloon);
-
         const gameOverScript = this.gameOverMenu.getComponent('game_over_menu');
 
         if (gameOverScript) {
