@@ -1,49 +1,62 @@
 
-const {ccclass, property} = cc._decorator;
+const {ccclass} = cc._decorator;
 
 @ccclass
 export default class Balloon extends cc.Component {
-   @property(cc.Prefab)
-   balloonPrefab: cc.Prefab = null;
 
-   start() {
-      const balloon = cc.instantiate(this.balloonPrefab);
+   private tween: cc.Tween <cc.Node>= null;
+   private isPaused: boolean = false;
+   private balloonSpeed: number = 2;
+  
+  onLoad() {
+    this.animateBalloon();
 
-      this.node.addChild(balloon);
-      this.animateBalloon(balloon);
-   }
+    cc.systemEvent.on('pause-game', this.pauseBalloon, this);
+    cc.systemEvent.on('resume-game', this.resumeBalloon, this);
+    this.node.on(cc.Node.EventType.TOUCH_START, this.burstBalloon, this);
+  }
+         
+  animateBalloon() {
+    this.tween = cc.tween(this.node)
+       .to(this.balloonSpeed, {position: cc.v3(this.node.x, cc.winSize.height )})
+       .call(() => {
+           this.node.destroy();
+           cc.systemEvent.emit('balloon-missed');
+            
+          })
+        .start();
+  }
 
-   animateBalloon(balloon: cc.Node) {
-      cc.tween(balloon)
-      .to(2, {position: cc.v3(0, cc.winSize.height / 2, 0)})
-      .call(() => {
-         balloon.destroy();
-      })
-      .start();
-   }
+  burstBalloon() {
+    cc.systemEvent.emit('balloon-popped');
+        
+    cc.tween(this.node)
+        .to(0.2, {scale: 0})
+        .call(() => this.node.removeFromParent())
+        .start();
+  }
 
-     onLoad() {
-        this.node.on(cc.Node.EventType.TOUCH_START, this.burstBalloon, this);
+  pauseBalloon() {
+    if (this.tween) {
+        cc.Tween.stopAll();
+        this.isPaused = true;
+      } 
+  }
+     
 
-        cc.systemEvent.on('pause-game', this.pauseBalloon, this);
-        cc.systemEvent.on('resume-game', this.animateBalloon, this);
-     }
+  resumeBalloon() {
+    if(this.isPaused){
+      this.animateBalloon();
+       
+    }
+    
+    this.isPaused = false;
+         
+  }
 
-     protected onDestroy(): void {
-        cc.systemEvent.off('pause-game', this.pauseBalloon, this);
-        cc.systemEvent.off('resume-game', this.animateBalloon, this);
-     }
-
-     burstBalloon(){
-        cc.systemEvent.emit('balloon-popped');
-        const scaleDown = cc.scaleTo(0.2, 0).easing(cc.easeBackIn());
-        const remove = cc.callFunc(() => this.node.removeFromParent());
-
-        this.node.runAction(cc.sequence(scaleDown, remove));
-     }
-
-     pauseBalloon(balloon: cc.Node) {
-      cc.tween(balloon)
-      .stop();
-     }
+  onDestroy() {
+    cc.systemEvent.off('pause-game', this.pauseBalloon, this);
+    cc.systemEvent.off('resume-game', this.animateBalloon, this);
+        
+  }
 }

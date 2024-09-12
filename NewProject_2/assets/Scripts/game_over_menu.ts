@@ -1,4 +1,3 @@
-import GameController from "./Controllers/Game_controller";
 
 const { ccclass, property } = cc._decorator;
 
