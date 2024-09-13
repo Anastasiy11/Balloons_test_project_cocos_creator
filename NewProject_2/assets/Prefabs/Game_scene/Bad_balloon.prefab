@@ -13,11 +13,11 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Balloon",
+    "_name": "Bad_balloon",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 2
@@ -39,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 228,
-      "height": 560
+      "width": 223,
+      "height": 496
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -51,8 +51,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        19,
-        1272.987,
+        18.803,
+        940.14,
         0,
         0,
         0,
@@ -92,10 +92,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "eb953d0a-c8cf-40de-9bf8-7ff4a1bbd1ea"
+      "__uuid__": "183dd6c5-8714-4fa2-8193-752d8835b79f"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -109,7 +109,7 @@
     "_id": ""
   },
   {
-    "__type__": "2fa50qb8CVE7ZvmHCdnP3KF",
+    "__type__": "e6352XfQA5JDJybunx6YA/Q",
     "_name": "",
     "_objFlags": 0,
     "node": {

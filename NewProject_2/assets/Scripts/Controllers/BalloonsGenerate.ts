@@ -2,8 +2,8 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class BalloonsGenerate extends cc.Component {
-    @property(cc.Prefab)
-    balloonPrefab: cc.Prefab = null;
+    @property(cc.Prefab) balloonPrefab: cc.Prefab = null;
+    @property(cc.Prefab) badBalloonPrefab: cc.Prefab = null;
 
     private isPaused: boolean = false;
 
@@ -15,12 +15,18 @@ export default class BalloonsGenerate extends cc.Component {
         cc.systemEvent.on('resume-game', this.resumeGame, this);
     }
 
-    generateBalloons() {
-        if(this.isPaused) return;
+    public generateBalloons() {
+        if (this.isPaused) return;
 
-        const balloon = cc.instantiate(this.balloonPrefab);
+        let balloon;
 
-        const screenWidth = cc.winSize.width;
+        if (Math.random() < 0.2) {
+            balloon = cc.instantiate(this.badBalloonPrefab);
+        } else {
+            balloon = cc.instantiate(this.balloonPrefab);
+        }
+       
+        const screenWidth = this.node.width;
         const balloonWidth = balloon.width;
 
         const minX = -screenWidth / 2 + balloonWidth / 2;
@@ -35,15 +41,15 @@ export default class BalloonsGenerate extends cc.Component {
         this.node.addChild(balloon);
     }
 
-    gameOver() {
+    public gameOver() {
         this.unschedule(this.generateBalloons);
     }
 
-    pauseGame() {
+    public pauseGame() {
         this.isPaused = true;
     }
 
-    resumeGame() {
+    public resumeGame() {
         this.isPaused = false;
     }
 

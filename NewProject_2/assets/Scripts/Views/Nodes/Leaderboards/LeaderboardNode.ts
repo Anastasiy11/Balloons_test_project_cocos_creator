@@ -1,5 +1,7 @@
 
+
 import LeaderboardItem from "../../../Models/LeaderboardItem";
+import leaderboardStorage from "../../../Utils/LeaderboardStorage";
 import LeaderboardItemNode from "./LeaderboardItemNode";
 
 const {ccclass, property} = cc._decorator;
@@ -9,45 +11,14 @@ export default class LeaderboardNode extends cc.Component {
     @property(cc.Node) content: cc.Node = null;
     @property(cc.Prefab) leaderboardPrefab: cc.Prefab = null;
 
-    private testModel = [
-        new LeaderboardItem("Витя", 1000),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Настя", 1),
-        new LeaderboardItem("Данил", 0)
-    ]
+    private scores: LeaderboardItem[] = [];
 
     public init() {
-        this.testModel.forEach((leaderboardItem: LeaderboardItem) => {
+        this.scores = [
+            leaderboardStorage.getAll()
+        ];
+
+        this.scores.forEach((leaderboardItem: LeaderboardItem) => {
             let node = cc.instantiate(this.leaderboardPrefab)
 
             let leaderboardItemNodeComponent = node.getComponent(LeaderboardItemNode)
