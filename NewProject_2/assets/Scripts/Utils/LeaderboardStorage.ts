@@ -1,4 +1,4 @@
-import LeaderboardItem from "../Models/LeaderboardItem";
+import LeaderboardItemModel from "../Models/LeaderboardItem";
 
 
 const {ccclass} = cc._decorator;
@@ -11,13 +11,28 @@ export default class leaderboardStorage {
             points: points
         };
 
-        cc.sys.localStorage.setItem('playerData', JSON.stringify(playerData));
+        let scoresJson = cc.sys.localStorage.getItem('scoreData')
+        if (scoresJson == null) {
+            var list = []
+            list.push(playerData)
+            cc.sys.localStorage.setItem('scoreData', JSON.stringify(list));
+            return
+        }
+
+        let score = JSON.parse(scoresJson)
+        score.push(playerData)
+ 
+        cc.sys.localStorage.setItem('scoreData', JSON.stringify(score));
     }
 
-   public static getAll(): LeaderboardItem {
-        const playerData = JSON.parse(cc.sys.localStorage.getItem('playerData'));
-        let leaderboardItem = new LeaderboardItem(playerData.playerName, playerData.points);
+    public static getAll(): LeaderboardItemModel[] {
+        let scoresJson = cc.sys.localStorage.getItem('scoreData')
 
-        return leaderboardItem;
+        cc.log(scoresJson)
+        if (scoresJson == null) return []
+        
+        const playerData = JSON.parse(scoresJson);
+        //TODO прочитать про map
+        return playerData.map(score => new LeaderboardItemModel(score.playerName, Number.parseInt(score.points)))
     }
 }

@@ -5,18 +5,16 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Menu extends cc.Component {
-    @property(cc.Node) leaderboardNode: cc.Node = null;
-
-    onLoad () {}
+    @property(cc.Node) leaderboardPanelNode: cc.Node = null;
         
     public startGameButton () {
         cc.director.loadScene('Game_scene');
     }
 
     public showLeaderboardButton() {
-        if (this.leaderboardNode.active == true) return
+        if (this.leaderboardPanelNode.active == true) return
 
-        this.leaderboardNode.active = true
-        this.leaderboardNode.getComponent(LeaderboardNode).init()
+        this.leaderboardPanelNode.active = true
+        this.leaderboardPanelNode.getComponent(LeaderboardNode).init()
     }
 }

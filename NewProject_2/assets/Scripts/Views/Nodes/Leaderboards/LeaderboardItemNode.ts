@@ -1,4 +1,4 @@
-import LeaderboardItem from "../../../Models/LeaderboardItem"
+import LeaderboardItemModel from "../../../Models/LeaderboardItem"
 
 const {ccclass, property} = cc._decorator;
 
@@ -7,7 +7,7 @@ export default class LeaderboardItemNode extends cc.Component {
     @property(cc.Label) nameLabel: cc.Label = null;
     @property(cc.Label) pointLabel: cc.Label = null;
 
-    public init(leaderboardItem: LeaderboardItem): void {
+    public init(leaderboardItem: LeaderboardItemModel): void {
         this.nameLabel.string = leaderboardItem.playerName
         this.pointLabel.string = leaderboardItem.points.toString()
     }

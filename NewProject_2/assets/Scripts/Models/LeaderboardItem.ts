@@ -1,4 +1,4 @@
-export default class LeaderboardItem {
+export default class LeaderboardItemModel {
     private _playerName: string
     private _points: number
 

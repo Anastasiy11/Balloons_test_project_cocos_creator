@@ -1,8 +1,10 @@
 const {ccclass} = cc._decorator;
 
+
+// BaloonController
 @ccclass
 export default class Balloon extends cc.Component {
-    private tween: cc.Tween <cc.Node>= null;
+    protected tween: cc.Tween <cc.Node>= null;
     private isPaused: boolean = false;
     public balloonSpeed: number = 3;
   
@@ -35,16 +37,19 @@ export default class Balloon extends cc.Component {
     }
 
     public pauseBalloon() {
-         if (this.tween) {
-            cc.Tween.stopAll();
+        cc.log("KEKO")
+        if (this.tween) {
+            cc.log("LELO")
+            // this.tween.stop()
+            cc.director.getActionManager().pauseTarget(this.node);
             this.isPaused = true;
         } 
     }
      
 
     public resumeBalloon() {
-        if(this.isPaused){
-            this.animateBalloon();
+        if (this.isPaused){
+            cc.director.getActionManager().resumeTarget(this.node);
         }
     
         this.isPaused = false;   

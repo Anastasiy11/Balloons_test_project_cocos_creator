@@ -1,6 +1,6 @@
 
 
-import LeaderboardItem from "../../../Models/LeaderboardItem";
+import LeaderboardItemModel from "../../../Models/LeaderboardItem";
 import leaderboardStorage from "../../../Utils/LeaderboardStorage";
 import LeaderboardItemNode from "./LeaderboardItemNode";
 
@@ -11,24 +11,32 @@ export default class LeaderboardNode extends cc.Component {
     @property(cc.Node) content: cc.Node = null;
     @property(cc.Prefab) leaderboardPrefab: cc.Prefab = null;
 
-    private scores: LeaderboardItem[] = [];
+    private scores: LeaderboardItemModel[] = [];
 
     public init() {
-        this.scores = [
-            leaderboardStorage.getAll()
-        ];
-
-        this.scores.forEach((leaderboardItem: LeaderboardItem) => {
-            let node = cc.instantiate(this.leaderboardPrefab)
-
-            let leaderboardItemNodeComponent = node.getComponent(LeaderboardItemNode)
-            leaderboardItemNodeComponent.init(leaderboardItem)
-
-            this.content.addChild(node)
-        })
+        this.initScoresData()
+        this.showLeaderboardViewItems()
     }
 
     public exitButton() {
         this.node.active = false
+    }
+
+    private initScoresData() {
+        this.scores = leaderboardStorage.getAll()
+    } 
+
+    private addLeaderboardViewItem(leaderboardItem: LeaderboardItemModel) {
+        let node = cc.instantiate(this.leaderboardPrefab)
+
+        let leaderboardItemNodeComponent = node.getComponent(LeaderboardItemNode)
+        leaderboardItemNodeComponent.init(leaderboardItem)
+
+        this.content.addChild(node)
+    }
+
+    // TODO Почитать
+    private showLeaderboardViewItems() {
+        this.scores.forEach(scores => this.addLeaderboardViewItem(scores))
     }
 }

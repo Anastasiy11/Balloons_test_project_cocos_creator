@@ -1,6 +1,7 @@
 
 const { ccclass, property } = cc._decorator;
 
+// TODO разбить на UI и Controller
 @ccclass
 export default class ScoreController extends cc.Component {
     @property(cc.Label) scoreLabel: cc.Label = null;
