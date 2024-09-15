@@ -1,6 +1,5 @@
 import LeaderboardItemModel from "../Models/LeaderboardItem";
 
-
 const {ccclass} = cc._decorator;
 
 @ccclass
@@ -32,7 +31,7 @@ export default class leaderboardStorage {
         if (scoresJson == null) return []
         
         const playerData = JSON.parse(scoresJson);
-        //TODO прочитать про map
+        
         return playerData.map(score => new LeaderboardItemModel(score.playerName, Number.parseInt(score.points)))
     }
 }

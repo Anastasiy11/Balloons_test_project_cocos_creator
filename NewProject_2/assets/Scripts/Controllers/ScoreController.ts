@@ -1,32 +1,37 @@
 
-const { ccclass, property } = cc._decorator;
+const { ccclass } = cc._decorator;
 
-// TODO разбить на UI и Controller
 @ccclass
 export default class ScoreController extends cc.Component {
-    @property(cc.Label) scoreLabel: cc.Label = null;
-
     public score: number = 0;
 
     onLoad() {
-        cc.systemEvent.on('balloon-popped', this.incrementScore, this);
+        this.subscribe();
         this.score = 0;
     }
 
-    public incrementScore() {
+    protected incrementScore() {
         this.updateScore(1);
     }
 
-    public updateScore(points: number) {
+    protected updateScore(points: number) {
         this.score += points;
-        this.scoreLabel.string = "Score: " + this.score;
+        cc.systemEvent.emit('score-updated', this.score);
     }
     
     public getFinalScore(): number {
         return this.score;
     }
 
-    onDestroy() {
+    private subscribe() {
+        cc.systemEvent.on('balloon-popped', this.incrementScore, this);
+    }
+
+    private unsubscribe() {
         cc.systemEvent.off('balloon-popped', this.incrementScore, this);
+    }
+
+    onDestroy() {
+        this.unsubscribe();
     } 
 }

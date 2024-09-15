@@ -1,21 +1,18 @@
-const { ccclass, property } = cc._decorator;
+const {ccclass} = cc._decorator;
 
 @ccclass
 export default class PauseMenu extends cc.Component {
-    @property(cc.Button) resumeButton: cc.Button = null;
-    @property(cc.Button) menuButton: cc.Button = null;
-    @property(cc.Button) restartGameButton: cc.Button = null;
-
-    public onResumeGame() {
+   
+    public resumeGameButton() {
         this.node.active = false;
         cc.systemEvent.emit('resume-game');
     }
 
-    public goToMenu() {
+    public goToMenuButton() {
         cc.director.loadScene('Menu_scene');
     }
 
-    public restartGame() {
+    public restartGameButton() {
         cc.director.loadScene('Game_scene');
     }
 }

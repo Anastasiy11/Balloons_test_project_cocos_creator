@@ -6,6 +6,7 @@ const {ccclass} = cc._decorator;
 export default class BadBalloon extends Balloon {
 
     burstBalloon(): void {
+        if (this.isPaused || this.isGameOver) return;
         cc.systemEvent.emit('badBalloon');
 
         this.tween = cc.tween(this.node)
@@ -21,9 +22,5 @@ export default class BadBalloon extends Balloon {
                 this.node.removeFromParent();
              })
             .start();
-    }
-
-    resumeBalloon(): void {
-        this.animateBalloon();
     }
 }

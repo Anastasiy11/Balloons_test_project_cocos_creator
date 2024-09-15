@@ -35,7 +35,6 @@ export default class LeaderboardNode extends cc.Component {
         this.content.addChild(node)
     }
 
-    // TODO Почитать
     private showLeaderboardViewItems() {
         this.scores.forEach(scores => this.addLeaderboardViewItem(scores))
     }

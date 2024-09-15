@@ -1,20 +1,16 @@
 import ScoreController from "../../Controllers/ScoreController";
 import leaderboardStorage from "../../Utils/LeaderboardStorage";
 
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class gameOverMenu extends cc.Component {
+export default class GameOverMenu extends cc.Component {
     @property(cc.Label) finalScoreLabel: cc.Label = null;
-    @property(cc.Button) restartButton: cc.Button = null;
-    @property(cc.Button) menuButton: cc.Button = null;
-    @property(cc.Button) inputName: cc.Button = null;
     @property(cc.EditBox) playerNameInput: cc.EditBox = null;
     @property(ScoreController) scoreController: ScoreController = null;
 
     onLoad() {
-        cc.systemEvent.on('game-over', this.finalScore, this);
+        this.subscribe();
     }
 
     public finalScore() {
@@ -34,15 +30,23 @@ export default class gameOverMenu extends cc.Component {
         }
     }
 
-    public restartGame() {
+    public restartGameButton() {
         cc.director.loadScene('Game_scene');
     }
 
-    public goToMenu() {
+    public goToMenuButton() {
         cc.director.loadScene('Menu_scene');
     }
 
-    onDestroy() {
+    private subscribe() {
+        cc.systemEvent.on('game-over', this.finalScore, this);
+    }
+
+    private unsubscribe() {
         cc.systemEvent.off('game-over', this.finalScore, this);
+    }
+
+    onDestroy() {
+        this.unsubscribe();
     }
 }

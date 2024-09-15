@@ -1,19 +1,15 @@
 const {ccclass} = cc._decorator;
 
-
-// BaloonController
 @ccclass
 export default class Balloon extends cc.Component {
     protected tween: cc.Tween <cc.Node>= null;
-    private isPaused: boolean = false;
+    protected isPaused: boolean = false;
+    protected isGameOver: boolean = false;
     public balloonSpeed: number = 3;
   
     onLoad() {
+        this.subscribe(); 
         this.animateBalloon();
-
-        cc.systemEvent.on('pause-game', this.pauseBalloon, this);
-        cc.systemEvent.on('resume-game', this.resumeBalloon, this);
-        this.node.on(cc.Node.EventType.TOUCH_START, this.burstBalloon, this);
     }
          
     public animateBalloon() {
@@ -28,6 +24,7 @@ export default class Balloon extends cc.Component {
     }
 
     public burstBalloon() {
+        if (this.isPaused || this.isGameOver) return;
         cc.systemEvent.emit('balloon-popped');
         
         cc.tween(this.node)
@@ -36,17 +33,13 @@ export default class Balloon extends cc.Component {
             .start();
     }
 
-    public pauseBalloon() {
-        cc.log("KEKO")
+    public stopBalloon() {
         if (this.tween) {
-            cc.log("LELO")
-            // this.tween.stop()
             cc.director.getActionManager().pauseTarget(this.node);
             this.isPaused = true;
         } 
     }
      
-
     public resumeBalloon() {
         if (this.isPaused){
             cc.director.getActionManager().resumeTarget(this.node);
@@ -55,8 +48,26 @@ export default class Balloon extends cc.Component {
         this.isPaused = false;   
     }
 
+    public onGameOver() {
+        this.isGameOver = true;
+        this.stopBalloon();
+    }
+
+    private subscribe() {
+        cc.systemEvent.on('pause-game', this.stopBalloon, this);
+        cc.systemEvent.on('resume-game', this.resumeBalloon, this);
+        cc.systemEvent.on('game-over', this.onGameOver, this);
+        this.node.on(cc.Node.EventType.TOUCH_START, this.burstBalloon, this);
+    }
+
+    private unsubscribe() {
+        cc.systemEvent.off('pause-game', this.stopBalloon, this);
+        cc.systemEvent.off('resume-game', this.resumeBalloon, this);
+        cc.systemEvent.off('game-over', this.onGameOver, this);
+        this.node.off(cc.Node.EventType.TOUCH_START, this.burstBalloon, this);
+    }
+
     onDestroy() {
-        cc.systemEvent.off('pause-game', this.pauseBalloon, this);
-        cc.systemEvent.off('resume-game', this.animateBalloon, this);   
-  }
+        this.unsubscribe();
+    }
 }

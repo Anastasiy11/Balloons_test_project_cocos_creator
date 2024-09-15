@@ -6,25 +6,28 @@ export default class BalloonsGenerate extends cc.Component {
     @property(cc.Prefab) badBalloonPrefab: cc.Prefab = null;
     @property(cc.Node) generatorContainer: cc.Node = null;
 
-    private isPaused: boolean = false;
+    private balloonInterval: number = 0.5;
+    private elapsedTime: number = 0;
+    private isGenerateBalloons = false;
 
-    onLoad() {
-        // TODO вынести в startGenerate вызывать из Game
-        // TODO заенить schedule на Update cc.Component
-        this.schedule(this.generateBalloons, 0.5);
+    public startGenerate() {
+        this.subscribe();
 
-        cc.systemEvent.on('game-over', this.gameOver, this);
-        cc.systemEvent.on('pause-game', this.pauseGame, this);
-        cc.systemEvent.on('resume-game', this.resumeGame, this);
+        this.isGenerateBalloons = true;
+        this.elapsedTime = 0;
     }
 
     protected update(dt: number): void {
-        // cc.log("KEK")
+        if (!this.isGenerateBalloons) return;
+       this.elapsedTime += dt;
+
+       if (this.elapsedTime >= this.balloonInterval) {
+        this.generateBalloons();
+        this.elapsedTime = 0;
+       }
     }
 
     public generateBalloons() {
-        if (this.isPaused) return;
-
         let balloon = cc.instantiate(
             Math.random() < 0.2 
             ? this.badBalloonPrefab 
@@ -45,21 +48,23 @@ export default class BalloonsGenerate extends cc.Component {
         this.generatorContainer.addChild(balloon);
     }
 
-    public gameOver() {
-        this.unschedule(this.generateBalloons);
+    public stopGenerate() {
+        this.isGenerateBalloons = false;
+    }
+    
+    private subscribe() {
+        cc.systemEvent.on('game-over', this.stopGenerate, this);
+        cc.systemEvent.on('pause-game', this.stopGenerate, this);
+        cc.systemEvent.on('resume-game', this.startGenerate, this);
     }
 
-    public pauseGame() {
-        this.isPaused = true;
+    private unsubscribe() {
+        cc.systemEvent.off('game-over', this.stopGenerate, this);
+        cc.systemEvent.off('pause-game', this.stopGenerate, this);
+        cc.systemEvent.off('resume-game', this.startGenerate, this);
     }
-
-    public resumeGame() {
-        this.isPaused = false;
-    }
-
+    
     onDestroy() {
-        cc.systemEvent.off('game-over', this.gameOver, this);
-        cc.systemEvent.off('pause-game', this.pauseGame, this);
-        cc.systemEvent.off('resume-game', this.resumeGame, this);
+        this.unsubscribe();
     }
 }

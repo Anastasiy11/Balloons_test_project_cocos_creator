@@ -1,45 +1,34 @@
+import BalloonsGenerate from "../Controllers/BalloonsGenerate";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Game extends cc.Component {
-    // TODO перейти на евенты
-    // TODO pauseMenuNode
-    @property(cc.Node) pauseMenu: cc.Node = null;
-    // TODO gameOverMenuNode
-    @property(cc.Node) gameOverMenu: cc.Node = null;
+    @property(cc.Node) pauseMenuNode: cc.Node = null;
+    @property(cc.Node) gameOverMenuNode: cc.Node = null;
+    @property(BalloonsGenerate) balloonsGenerate: BalloonsGenerate = null;
 
     onLoad() {
-        this.subscribe()
-
-        this.pauseMenu.active = false;
-        this.gameOverMenu.active = false;
+        this.subscribe();
+        this.balloonsGenerate.startGenerate();
     }
 
-    // Todo pauseGameButton
-    public pauseGame() {
-        this.pauseMenu.active = true;
-        
+    public pauseGameButton() {
+        this.pauseMenuNode.active = true;
         cc.systemEvent.emit('pause-game');
     }
 
-    // Todo resumeGameButton
-    public resumeGame() {
-        this.pauseMenu.active = false;
-    }
-
     public gameOver() {
-        this.gameOverMenu.active = true;
+        this.gameOverMenuNode.active = true;
         cc.systemEvent.emit('game-over');
     }
 
     private subscribe() {
-        cc.systemEvent.on('balloon-missed', this.gameOver, this);
-        cc.systemEvent.on('badBalloon', this.gameOver, this);
+        cc.systemEvent.on('lives-over', this.gameOver, this);
     }
 
     private unsubscribe() {
-        cc.systemEvent.off('balloon-missed', this.gameOver, this);
-        cc.systemEvent.off('badBalloon', this.gameOver, this);
+        cc.systemEvent.off('lives-over', this.gameOver, this);
     }
 
     onDestroy() {
